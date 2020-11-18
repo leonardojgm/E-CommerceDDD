@@ -7,20 +7,19 @@ namespace Entities.Entities
     [Table("Product")]
     public class Product : Notifies
     {
-        [Column("PRD_ID")]
-        [Display(Name = "Código")]
+        #region Propriedades
+        [Column("PRD_ID")] [Display(Name = "Código")]
         public int Id { get; set; }
 
-        [Column("PRD_NOME")]
-        [Display(Name = "Nome")]
+        [Column("PRD_NOME")] [Display(Name = "Nome")]
         public string Nome { get; set; }
 
-        [Column("PRD_VALO")]
-        [Display(Name = "Valor")]
+        [Column("PRD_VALO")] [Display(Name = "Valor")]
         public decimal Valor { get; set; }
 
-        [Column("PRD_ESTADO")]
-        [Display(Name = "Estado")]
+        [Column("PRD_ESTADO")] [Display(Name = "Estado")]
         public bool Estado { get; set; }
+
+        #endregion
     }
 }

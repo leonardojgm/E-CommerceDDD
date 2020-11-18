@@ -3,7 +3,5 @@ using Entities.Entities;
 
 namespace Domain.Interfaces.InterfaceProduct
 {
-    public interface IProduct : IGeneric<Product>
-    {
-    }
+    public interface IProduct : IGeneric<Product> { }
 }
