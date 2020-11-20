@@ -30,23 +30,23 @@ namespace ApplicationApp.OpenApp
 
         #region InterfaceProductApp
 
-        public async Task AddProduct(Product product) { await _IServiceProduct.AddProduct(product); }
+        public async Task AddProduct(Produto product) { await _IServiceProduct.AddProduct(product); }
 
-        public async Task UpdateProduct(Product product) { await _IServiceProduct.UpdateProduct(product); }
+        public async Task UpdateProduct(Produto product) { await _IServiceProduct.UpdateProduct(product); }
 
         #endregion
 
         #region InterfaceGenericaApp
 
-        public async Task Add(Product Objeto) { await _IProduct.Add(Objeto); }
+        public async Task Add(Produto Objeto) { await _IProduct.Add(Objeto); }
 
-        public async Task Delete(Product Objeto) { await _IProduct.Delete(Objeto); }
+        public async Task Delete(Produto Objeto) { await _IProduct.Delete(Objeto); }
 
-        public async Task<Product> GetEntityById(int Id) { return await _IProduct.GetEntityById(Id); }
+        public async Task<Produto> GetEntityById(int Id) { return await _IProduct.GetEntityById(Id); }
 
-        public async Task<List<Product>> List() { return await _IProduct.List(); }
+        public async Task<List<Produto>> List() { return await _IProduct.List(); }
 
-        public async Task Update(Product Objeto) { await _IProduct.Update(Objeto); }
+        public async Task Update(Produto Objeto) { await _IProduct.Update(Objeto); }
 
         #endregion
 

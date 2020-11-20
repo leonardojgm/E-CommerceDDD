@@ -8,7 +8,9 @@ namespace Infraestructure.Configuration
     {
         #region Propriedades
 
-        public DbSet<Product> Products { get; set; }
+        public DbSet<Produto> Produto { get; set; }
+
+        public DbSet<CompraUsuario> CompraUsuario { get; set; }
 
         #endregion
 

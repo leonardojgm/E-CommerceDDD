@@ -7,9 +7,9 @@ namespace Domain.Interfaces.InterfaceServices
     {
         #region Métodos
 
-        Task AddProduct(Product product);
+        Task AddProduct(Produto product);
 
-        Task UpdateProduct(Product product);
+        Task UpdateProduct(Produto product);
 
         #endregion
     }

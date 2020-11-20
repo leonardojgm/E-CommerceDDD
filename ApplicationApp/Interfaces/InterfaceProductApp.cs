@@ -3,13 +3,13 @@ using System.Threading.Tasks;
 
 namespace ApplicationApp.Interfaces
 {
-    interface InterfaceProductApp : InterfaceGenericaApp<Product>
+    interface InterfaceProductApp : InterfaceGenericaApp<Produto>
     {
         #region Métodos
 
-        Task AddProduct(Product product);
+        Task AddProduct(Produto product);
 
-        Task UpdateProduct(Product product);
+        Task UpdateProduct(Produto product);
 
         #endregion
     }

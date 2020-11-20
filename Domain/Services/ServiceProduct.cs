@@ -23,7 +23,7 @@ namespace Domain.Services
 
         #region IServiceProduct
 
-        public async Task AddProduct(Product product)
+        public async Task AddProduct(Produto product)
         {
             var validaNome = product.ValidaPropriedadeString(product.Nome, "Nome");
             var validaValor = product.ValidaPropriedadDecimal(product.Valor, "Valor");
@@ -36,7 +36,7 @@ namespace Domain.Services
             }
         }
 
-        public async Task UpdateProduct(Product product)
+        public async Task UpdateProduct(Produto product)
         {
             var validaNome = product.ValidaPropriedadeString(product.Nome, "Nome");
             var validaValor = product.ValidaPropriedadDecimal(product.Valor, "Valor");

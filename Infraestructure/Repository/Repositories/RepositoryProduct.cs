@@ -4,5 +4,5 @@ using Infraestructure.Repository.Generics;
 
 namespace Infraestructure.Repository.Repositories
 {
-    public class RepositoryProduct : RepositoryGenerics <Product>, IProduct { }
+    public class RepositoryProduct : RepositoryGenerics <Produto>, IProduct { }
 }
