@@ -1,11 +1,13 @@
 ﻿using Entities.Entities;
+using Microsoft.AspNetCore.Identity.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore;
 
 namespace Infraestructure.Configuration
 {
-    public class ContextBase : DbContext
+    public class ContextBase : IdentityDbContext<ApplicationUser>
     {
         #region Propriedades
+
         public DbSet<Product> Products { get; set; }
 
         #endregion
@@ -33,7 +35,7 @@ namespace Infraestructure.Configuration
 
         private string GetStringConectionConfig()
         {
-            return "Data Source=DESKTOP-HVNTI80\\DESENVOLVIMENTO;Initial Catalog=DDD_ECOMMERCE;Integrated Security=False;User ID=sa;Password=1234;Connect Timeout=15;Encrypt=False;TrustServerCertificate=False";
+            return "Data Source=DESKTOP-RPGUSJ3;Initial Catalog=DDD_ECOMMERCE;Integrated Security=False;User ID=sa;Password=1;Connect Timeout=15;Encrypt=False;TrustServerCertificate=False";
         }
 
         #endregion

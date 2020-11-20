@@ -8,6 +8,7 @@ namespace Entities.Entities
     public class Product : Notifies
     {
         #region Propriedades
+
         [Column("PRD_ID")] [Display(Name = "Código")]
         public int Id { get; set; }
 
