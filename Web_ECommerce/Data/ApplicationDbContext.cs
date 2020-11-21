@@ -5,6 +5,10 @@ namespace Web_ECommerce.Data
 {
     public class ApplicationDbContext : IdentityDbContext
     {
+        #region Construtores
+
         public ApplicationDbContext(DbContextOptions<ApplicationDbContext> options) : base(options) { }
+
+        #endregion
     }
 }

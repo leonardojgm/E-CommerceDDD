@@ -5,17 +5,17 @@ using System.Threading.Tasks;
 
 namespace Domain.Services
 {
-    class ServiceProduct : IServiceProduct
+    public class ServiceProduct : IServiceProduct
     {
-        #region Propriedades
-
-        private readonly IProduct _IProduct;
-
-        #endregion
-
         #region Construtores
 
         public ServiceProduct(IProduct IProduct) { _IProduct = IProduct; }
+
+        #endregion
+
+        #region Propriedades
+
+        private readonly IProduct _IProduct;
 
         #endregion
 

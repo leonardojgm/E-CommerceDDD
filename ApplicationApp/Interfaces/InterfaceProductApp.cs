@@ -3,7 +3,7 @@ using System.Threading.Tasks;
 
 namespace ApplicationApp.Interfaces
 {
-    interface InterfaceProductApp : InterfaceGenericaApp<Produto>
+    public interface InterfaceProductApp : InterfaceGenericaApp<Produto>
     {
         #region Métodos
 

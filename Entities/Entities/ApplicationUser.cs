@@ -5,7 +5,7 @@ using System.ComponentModel.DataAnnotations.Schema;
 
 namespace Entities.Entities
 {
-    public class ApplicationUser : IdentityUser
+    public class ApplicationUser : IdentityUser<string>
     {
         #region Propriedades
 
@@ -37,7 +37,7 @@ namespace Entities.Entities
         public bool Estado { get; set; }
 
         [Column("USR_TIPO")] [Display(Name = "Tipo")]
-        public TipoUsuario Tipo { get; set; }
+        public TipoUsuario? Tipo { get; set; }
 
         #endregion
     }

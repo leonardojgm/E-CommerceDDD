@@ -11,15 +11,15 @@ namespace Infraestructure.Repository.Generics
 {
     public class RepositoryGenerics<T> : IGeneric<T>, IDisposable where T : class
     {
-        #region Propriedades
-
-        private readonly DbContextOptions<ContextBase> _OptionsBuild;
-
-        #endregion
-
         #region Construtores
 
         public RepositoryGenerics() { _OptionsBuild = new DbContextOptions<ContextBase>(); }
+
+        #endregion
+
+        #region Propriedades
+
+        private readonly DbContextOptions<ContextBase> _OptionsBuild;
 
         #endregion
 

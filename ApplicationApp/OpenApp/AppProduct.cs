@@ -9,13 +9,6 @@ namespace ApplicationApp.OpenApp
 {
     public class AppProduct : InterfaceProductApp
     {
-        #region Propriedades
-
-        private readonly IProduct _IProduct;
-        private readonly IServiceProduct _IServiceProduct;
-
-        #endregion
-
         #region Construtores
 
         public AppProduct(IProduct IProduct, IServiceProduct IServiceProduct)
@@ -23,6 +16,14 @@ namespace ApplicationApp.OpenApp
             _IProduct = IProduct;
             _IServiceProduct = IServiceProduct;
         }
+
+        #endregion
+
+        #region Propriedades
+
+        private readonly IProduct _IProduct;
+
+        private readonly IServiceProduct _IServiceProduct;
 
         #endregion
 

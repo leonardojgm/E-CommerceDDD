@@ -5,10 +5,13 @@ namespace Entities.Notifications
 {
     public class Notifies
     {
-        public Notifies()
-        {
-            Notifycoes = new List<Notifies>();
-        }
+        #region Construtores
+
+        public Notifies() { Notifycoes = new List<Notifies>(); }
+
+        #endregion
+
+        #region Propriedades
 
         [NotMapped]
         public string NomePropriedade { get; set; }
@@ -16,8 +19,16 @@ namespace Entities.Notifications
         [NotMapped]
         public string Mensagem { get; set; }
 
+        #endregion
+
+        #region Relacionamentos
+
         [NotMapped]
         public List<Notifies> Notifycoes { get; set; }
+
+        #endregion
+
+        #region Métodos
 
         public bool ValidaPropriedadeString(string valor, string nomePropriedade)
         {
@@ -54,5 +65,7 @@ namespace Entities.Notifications
 
             return true;
         }
+
+        #endregion
     }
 }
