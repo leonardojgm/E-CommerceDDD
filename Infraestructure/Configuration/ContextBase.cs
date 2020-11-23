@@ -5,7 +5,7 @@ using Microsoft.EntityFrameworkCore;
 
 namespace Infraestructure.Configuration
 {
-    public class ContextBase : IdentityDbContext<IdentityUser>
+    public class ContextBase : IdentityDbContext<ApplicationUser>
     {
         #region Contrutores
 
@@ -19,7 +19,7 @@ namespace Infraestructure.Configuration
 
         public DbSet<CompraUsuario> CompraUsuario { get; set; }
 
-        public DbSet<IdentityUser> IdentityUser { get; set; }
+        public DbSet<ApplicationUser> ApplicationUser { get; set; }
 
         #endregion
 
@@ -39,7 +39,7 @@ namespace Infraestructure.Configuration
 
         protected override void OnModelCreating(ModelBuilder builder)
         {
-            builder.Entity<IdentityUser>().ToTable("AspNetUsers").HasKey(t => t.Id);
+            builder.Entity<ApplicationUser>().ToTable("AspNetUsers").HasKey(t => t.Id);
 
             base.OnModelCreating(builder);
         }
@@ -48,7 +48,7 @@ namespace Infraestructure.Configuration
 
         private string GetStringConectionConfig()
         {
-            return "Data Source=DESKTOP-RPGUSJ3;Initial Catalog=DDD_ECOMMERCE;Integrated Security=False;User ID=sa;Password=1;Connect Timeout=15;Encrypt=False;TrustServerCertificate=False";
+            return "Data Source=DESKTOP-RPGUSJ3;Initial Catalog=DDD_ECOMMERCE;Integrated Security=False;User ID=sa;Password=1234;Connect Timeout=15;Encrypt=False;TrustServerCertificate=False";
         }
 
         #endregion

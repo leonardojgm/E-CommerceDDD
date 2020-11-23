@@ -1,6 +1,7 @@
 ﻿using ApplicationApp.Interfaces;
 using Entities.Entities;
 using Microsoft.AspNetCore.Authorization;
+using Microsoft.AspNetCore.Identity;
 using Microsoft.AspNetCore.Mvc;
 using System.Linq;
 using System.Threading.Tasks;
@@ -12,11 +13,17 @@ namespace Web_ECommerce.Controllers
     {
         #region Construtores
 
-        public ProdutosController(InterfaceProductApp InterfaceProductApp) { _InterfaceProductApp = InterfaceProductApp; }
+        public ProdutosController(InterfaceProductApp InterfaceProductApp, UserManager<ApplicationUser> userManager) 
+        { 
+            _InterfaceProductApp = InterfaceProductApp;
+            _userManager = userManager;
+        }
 
         #endregion
 
         #region Propriedades
+
+        public readonly UserManager<ApplicationUser> _userManager;
 
         public readonly InterfaceProductApp _InterfaceProductApp;
 
@@ -25,7 +32,12 @@ namespace Web_ECommerce.Controllers
         #region Métodos
 
         // GET: ProdutosController
-        public async Task<IActionResult> Index() { return View(await _InterfaceProductApp.List()); }
+        public async Task<IActionResult> Index()
+        {
+            var idUsuario = await RetornarIdUsuarioLogado();
+
+            return View(await _InterfaceProductApp.ListaProdutosUsuario(idUsuario)); 
+        }
 
         // GET: ProdutosController/Details/5
         public async Task<IActionResult> Details(int id) { return View(await _InterfaceProductApp.GetEntityById(id)); }
@@ -42,18 +54,22 @@ namespace Web_ECommerce.Controllers
         {
             try
             {
+                var idUsuario = await RetornarIdUsuarioLogado();
+
+                produto.UserId = idUsuario;
+
                 await _InterfaceProductApp.AddProduct(produto);
 
                 if (produto.Notifycoes.Any())
                 {
                     foreach (var item in produto.Notifycoes) ModelState.AddModelError(item.NomePropriedade, item.Mensagem);
 
-                    return View("Edit", produto);
+                    return View("Create", produto);
                 }
             }
             catch
             {
-                return View("Edit", produto);
+                return View("Create", produto);
             }
 
             return RedirectToAction(nameof(Index));
@@ -104,6 +120,13 @@ namespace Web_ECommerce.Controllers
             {
                 return View();
             }
+        }
+
+        private async Task<string> RetornarIdUsuarioLogado()
+        {
+            var idUsuario = await _userManager.GetUserAsync(User);
+
+            return idUsuario.Id;
         }
 
         #endregion

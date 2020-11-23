@@ -4,6 +4,7 @@ using Domain.Interfaces.Generics;
 using Domain.Interfaces.InterfaceProduct;
 using Domain.Interfaces.InterfaceServices;
 using Domain.Services;
+using Entities.Entities;
 using Infraestructure.Configuration;
 using Infraestructure.Repository.Generics;
 using Infraestructure.Repository.Repositories;
@@ -37,7 +38,7 @@ namespace Web_ECommerce
         public void ConfigureServices(IServiceCollection services)
         {
             services.AddDbContext<ContextBase>(options => options.UseSqlServer(Configuration.GetConnectionString("DefaultConnection")));
-            services.AddDefaultIdentity<IdentityUser>(options => options.SignIn.RequireConfirmedAccount = true).AddEntityFrameworkStores<ContextBase>();
+            services.AddDefaultIdentity<ApplicationUser>(options => options.SignIn.RequireConfirmedAccount = true).AddEntityFrameworkStores<ContextBase>();
             services.AddControllersWithViews();
             services.AddRazorPages();
 

@@ -35,6 +35,8 @@ namespace ApplicationApp.OpenApp
 
         public async Task UpdateProduct(Produto product) { await _IServiceProduct.UpdateProduct(product); }
 
+        public async Task<List<Produto>> ListaProdutosUsuario(string userId) { return await _IProduct.ListaProdutosUsuario(userId); }
+
         #endregion
 
         #region InterfaceGenericaApp
