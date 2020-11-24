@@ -1,4 +1,7 @@
 ﻿using Entities.Entities;
+using System;
+using System.Collections.Generic;
+using System.Linq.Expressions;
 using System.Threading.Tasks;
 
 namespace Domain.Interfaces.InterfaceServices
@@ -10,6 +13,8 @@ namespace Domain.Interfaces.InterfaceServices
         Task AddProduct(Produto product);
 
         Task UpdateProduct(Produto product);
+
+        Task<List<Produto>> ListarProdutosComEstoque();
 
         #endregion
     }

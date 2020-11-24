@@ -36,7 +36,7 @@ namespace Web_ECommerce.Controllers
         {
             var idUsuario = await RetornarIdUsuarioLogado();
 
-            return View(await _InterfaceProductApp.ListaProdutosUsuario(idUsuario)); 
+            return View(await _InterfaceProductApp.ListarProdutosUsuario(idUsuario)); 
         }
 
         // GET: ProdutosController/Details/5
@@ -128,6 +128,12 @@ namespace Web_ECommerce.Controllers
 
             return idUsuario.Id;
         }
+
+        [HttpGet("/api/ListarProdutosComEstoque")] [AllowAnonymous]
+        public async Task<JsonResult> ListarProdutosComEstoque() { return Json(await _InterfaceProductApp.ListarPodutosComEstoque()); }
+
+        [HttpPost("/api/AdicionarProdutoCarrinho")]
+        public async Task AdicionarProdutoCarrinho(string id, string nome, string qtd) { }
 
         #endregion
     }
