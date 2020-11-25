@@ -1,4 +1,5 @@
 ﻿using Entities.Notifications;
+using Microsoft.AspNetCore.Http;
 using System;
 using System.ComponentModel.DataAnnotations;
 using System.ComponentModel.DataAnnotations.Schema;
@@ -59,6 +60,13 @@ namespace Entities.Entities
 
         [NotMapped]
         public int QtdCompra { get; set; }
+
+        [NotMapped]
+        public IFormFile Imagem { get; set; }
+
+        [Column("PRD_URL")]
+        [Display(Name = "Url")]
+        public string Url { get; set; }
 
         #endregion
 

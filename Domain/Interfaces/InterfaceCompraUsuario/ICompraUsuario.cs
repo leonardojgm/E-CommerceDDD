@@ -1,5 +1,6 @@
 ﻿using Domain.Interfaces.Generics;
 using Entities.Entities;
+using Entities.Entities.Enums;
 using System.Threading.Tasks;
 
 namespace Domain.Interfaces.InterfaceCompraUsuario
@@ -9,6 +10,10 @@ namespace Domain.Interfaces.InterfaceCompraUsuario
         #region Métodos
 
         public Task<int> QuantidadeProdutoCarrinhoUsuario(string userId);
+
+        public Task<CompraUsuario> ProdutosCompradosPorEstado(string userId, EstadoCompra estado);
+
+        public Task<bool> ConfirmaCompraCarrinhoUsuario(string userId);
 
         #endregion
     }

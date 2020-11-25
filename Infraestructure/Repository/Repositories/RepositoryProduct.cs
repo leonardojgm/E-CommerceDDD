@@ -56,6 +56,7 @@ namespace Infraestructure.Repository.Repositories
                                                          Valor = p.Valor,
                                                          QtdCompra = c.QtdCompra,
                                                          IdProdutoCarrinho = c.Id,
+                                                         Url = p.Url,
                                                      }).AsNoTracking().ToListAsync();
 
                 return produtosCarrinhoUsuario; 
@@ -78,6 +79,7 @@ namespace Infraestructure.Repository.Repositories
                                                          Valor = p.Valor,
                                                          QtdCompra = c.QtdCompra,
                                                          IdProdutoCarrinho = c.Id,
+                                                         Url = p.Url,
                                                      }).AsNoTracking().FirstOrDefaultAsync();
 
                 return produtosCarrinhoUsuario;

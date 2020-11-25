@@ -1,5 +1,6 @@
 ﻿using Entities.Entities.Enums;
 using Entities.Notifications;
+using System.Collections.Generic;
 using System.ComponentModel.DataAnnotations;
 using System.ComponentModel.DataAnnotations.Schema;
 
@@ -32,6 +33,18 @@ namespace Entities.Entities
         [ForeignKey("ApplicationUser")]
         public string UserId { get; set; }
 
+        [NotMapped]
+        [Display(Name = "Quantidade Total")]
+        public int QuantidadeProdutos { get; set; }
+
+        [NotMapped]
+        [Display(Name = "Valor Total")]
+        public decimal ValorTotal { get; set; }
+
+        [NotMapped]
+        [Display(Name = "Endereço de entrega")]
+        public string EnderecoCompleto { get; set; }
+
         #endregion
 
         #region Relacionamentos
@@ -39,6 +52,9 @@ namespace Entities.Entities
         public virtual Produto Produto { get; set; }
 
         public virtual ApplicationUser ApplicationUser { get; set; }
+
+        [NotMapped]
+        public List<Produto> ListaProdutos { get; set; }
 
         #endregion
     }

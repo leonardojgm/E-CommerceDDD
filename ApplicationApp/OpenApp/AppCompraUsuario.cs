@@ -1,5 +1,6 @@
 ﻿using ApplicationApp.Interfaces;
 using Domain.Interfaces.InterfaceCompraUsuario;
+using Domain.Interfaces.InterfaceServices;
 using Entities.Entities;
 using System.Collections.Generic;
 using System.Threading.Tasks;
@@ -10,13 +11,19 @@ namespace ApplicationApp.OpenApp
     {
         #region Construtores
 
-        public AppCompraUsuario(ICompraUsuario ICompraUsuario) { _ICompraUsuario = ICompraUsuario; }
+        public AppCompraUsuario(ICompraUsuario ICompraUsuario, IServiceCompraUsuario IServicoCompraUsuario) 
+        { 
+            _ICompraUsuario = ICompraUsuario; 
+            _IServicoCompraUsuario = IServicoCompraUsuario; 
+        }
 
         #endregion
 
         #region Propriedades
 
         private readonly ICompraUsuario _ICompraUsuario;
+
+        private readonly IServiceCompraUsuario _IServicoCompraUsuario;
 
         #endregion
 
@@ -26,8 +33,13 @@ namespace ApplicationApp.OpenApp
 
         public async Task<int> QuantidadeProdutoCarrinhoUsuario(string userId) { return await _ICompraUsuario.QuantidadeProdutoCarrinhoUsuario(userId); }
 
-        #endregion
+        public async Task<CompraUsuario> CarrinhoCompras(string userId) { return await _IServicoCompraUsuario.CarrinhoCompras(userId); }
 
+        public async Task<CompraUsuario> ProdutosComprados(string userId) { return await _IServicoCompraUsuario.ProdutosComprados(userId); }
+
+        public async Task<bool> ConfirmaCompraCarrinhoUsuario(string userId) { return await _ICompraUsuario.ConfirmaCompraCarrinhoUsuario(userId); }
+
+        #endregion
 
         #region InterfaceGenericaApp
 
