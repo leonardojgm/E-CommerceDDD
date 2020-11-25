@@ -40,7 +40,7 @@ namespace Web_ECommerce.Controllers
                 await _InterfaceCompraUsuarioApp.Add(new CompraUsuario
                 {
                     IdProduto = Convert.ToInt32(id),
-                    Qtd = Convert.ToInt32(qtd),
+                    QtdCompra = Convert.ToInt32(qtd),
                     Estado = EstadoCompra.Produto_Carrinho,
                     UserId = usuario.Id,
                 });
@@ -49,6 +49,22 @@ namespace Web_ECommerce.Controllers
             }
 
             return Json(new { sucesso = false });    
+        }
+
+        [HttpGet("/api/QtdProdutoCarrinho")]
+        public async Task<JsonResult> QtdProdutoCarrinho()
+        {
+            var usuario = await _userManager.GetUserAsync(User);
+            var qtd = 0;
+
+            if (usuario != null)
+            {
+                qtd = await _InterfaceCompraUsuarioApp.QuantidadeProdutoCarrinhoUsuario(usuario.Id);
+
+                return Json(new { sucesso = true, qtd = qtd });
+            }
+
+            return Json(new { sucesso = false, qtd = qtd });
         }
 
         #endregion

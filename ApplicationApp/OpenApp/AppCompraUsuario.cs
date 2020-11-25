@@ -20,7 +20,16 @@ namespace ApplicationApp.OpenApp
 
         #endregion
 
+        #region Métodos
+
         #region InterfaceCompraUsuarioApp
+
+        public async Task<int> QuantidadeProdutoCarrinhoUsuario(string userId) { return await _ICompraUsuario.QuantidadeProdutoCarrinhoUsuario(userId); }
+
+        #endregion
+
+
+        #region InterfaceGenericaApp
 
         public async Task Add(CompraUsuario Objeto) { await _ICompraUsuario.Add(Objeto); }
 
@@ -31,6 +40,8 @@ namespace ApplicationApp.OpenApp
         public async Task<List<CompraUsuario>> List()   { return await _ICompraUsuario.List(); }
 
         public async Task Update(CompraUsuario Objeto) { await _ICompraUsuario.Update(Objeto); }
+
+        #endregion
 
         #endregion
     }

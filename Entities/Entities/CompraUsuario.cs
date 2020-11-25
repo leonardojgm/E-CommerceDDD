@@ -20,7 +20,7 @@ namespace Entities.Entities
         public EstadoCompra Estado { get; set; }
 
         [Column("CUS_QTD")] [Display(Name = "Quantidade")]
-        public int Qtd { get; set; }
+        public int QtdCompra { get; set; }
 
         [Column(Order = 1)] [Display(Name = "Usuário")] [ForeignKey("ApplicationUser")]
         public string UserId { get; set; }

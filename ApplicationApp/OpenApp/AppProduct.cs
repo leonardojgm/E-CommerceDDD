@@ -39,6 +39,10 @@ namespace ApplicationApp.OpenApp
 
         public async Task<List<Produto>> ListarPodutosComEstoque() { return await _IServiceProduct.ListarProdutosComEstoque(); }
 
+        public async Task<List<Produto>> ListarProdutosCarrinhoUsuario(string userId) { return await _IProduct.ListarProdutosCarrinhoUsuario(userId); }
+
+        public async Task<Produto> ObterProdutosCarrinho(int idProdutoCarrinho) { return await _IProduct.ObterProdutosCarrinho(idProdutoCarrinho); }
+
         #endregion
 
         #region InterfaceGenericaApp

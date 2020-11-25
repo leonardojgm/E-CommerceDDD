@@ -13,8 +13,9 @@ namespace Web_ECommerce.Controllers
     {
         #region Construtores
 
-        public ProdutosController(InterfaceProductApp InterfaceProductApp, UserManager<ApplicationUser> userManager) 
-        { 
+        public ProdutosController(InterfaceCompraUsuarioApp InterfaceCompraUsuarioApp, InterfaceProductApp InterfaceProductApp, UserManager<ApplicationUser> userManager) 
+        {
+            _InterfaceCompraUsuarioApp = InterfaceCompraUsuarioApp;
             _InterfaceProductApp = InterfaceProductApp;
             _userManager = userManager;
         }
@@ -26,6 +27,8 @@ namespace Web_ECommerce.Controllers
         public readonly UserManager<ApplicationUser> _userManager;
 
         public readonly InterfaceProductApp _InterfaceProductApp;
+
+        public readonly InterfaceCompraUsuarioApp _InterfaceCompraUsuarioApp;
 
         #endregion
 
@@ -134,6 +137,32 @@ namespace Web_ECommerce.Controllers
 
         [HttpGet("/api/ListarProdutosComEstoque")] [AllowAnonymous]
         public async Task<JsonResult> ListarProdutosComEstoque() { return Json(await _InterfaceProductApp.ListarPodutosComEstoque()); }
+
+        public async Task<IActionResult> ListarProdutosCarrinhoUsuario()
+        {
+            var idUsuario = await RetornarIdUsuarioLogado();
+
+            return View(await _InterfaceProductApp.ListarProdutosCarrinhoUsuario(idUsuario));
+        }
+
+        public async Task<IActionResult> RemoverCarrinho(int id) { return View(await _InterfaceProductApp.ObterProdutosCarrinho(id)); }
+
+        [HttpPost] [ValidateAntiForgeryToken]
+        public async Task<IActionResult> RemoverCarrinho(int id, Produto produto)
+        {
+            try
+            {
+                var produtoDeletar = await _InterfaceCompraUsuarioApp.GetEntityById(id);
+
+                await _InterfaceCompraUsuarioApp.Delete(produtoDeletar);
+
+                return RedirectToAction(nameof(ListarProdutosCarrinhoUsuario));
+            }
+            catch
+            {
+                return View();
+            }
+        }
 
         #endregion
     }

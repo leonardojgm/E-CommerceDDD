@@ -16,6 +16,10 @@ namespace ApplicationApp.Interfaces
 
         Task<List<Produto>> ListarPodutosComEstoque();
 
+        Task<List<Produto>> ListarProdutosCarrinhoUsuario(string userId);
+
+        Task<Produto> ObterProdutosCarrinho(int idProdutoCarrinho);
+
         #endregion
     }
 }
