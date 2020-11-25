@@ -11,7 +11,16 @@ ObjetoVenda.AdicionarCarrinho = function (idProduto) {
         cache: false,
         async: true,
         data: { "id": idProduto, "nome": nome, "qtd": qtd },
-        success: function (data) { }
+        success: function (data) {
+            if (data.sucesso) {
+                // 1 alert-sucess // 2 alert-warning // 3 alert-danger
+                ObjetoAlert.AlertaTela(1, "Produto adicionado no carrinho!");
+            }
+            else
+            {
+                ObjetoAlert.AlertaTela(2, "Necessário efetuar o login!");
+            }
+        }
     });
 }
 
@@ -42,6 +51,13 @@ ObjetoVenda.CarregaProdutos = function () {
     });
 }
 
+ObjetoVenda.CarregaQtdCarrinho = function () {
+    $("#qtdCarrinho").text("(0)");
+
+    setTimeout(ObjetoVenda.CarregaQtdCarrinho, 10000);
+}
+
 $(function () {
     ObjetoVenda.CarregaProdutos();
+    ObjetoVenda.CarregaQtdCarrinho();
 });

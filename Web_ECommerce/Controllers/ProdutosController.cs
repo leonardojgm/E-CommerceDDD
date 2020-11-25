@@ -90,6 +90,9 @@ namespace Web_ECommerce.Controllers
                 {
                     foreach (var item in produto.Notifycoes) ModelState.AddModelError(item.NomePropriedade, item.Mensagem);
 
+                    ViewBag.Alerta = true;
+                    ViewBag.Mensagem = "Verifique, ocorreu algum erro!";
+
                     return View("Edit", produto);
                 }
             }
@@ -131,9 +134,6 @@ namespace Web_ECommerce.Controllers
 
         [HttpGet("/api/ListarProdutosComEstoque")] [AllowAnonymous]
         public async Task<JsonResult> ListarProdutosComEstoque() { return Json(await _InterfaceProductApp.ListarPodutosComEstoque()); }
-
-        [HttpPost("/api/AdicionarProdutoCarrinho")]
-        public async Task AdicionarProdutoCarrinho(string id, string nome, string qtd) { }
 
         #endregion
     }

@@ -13,7 +13,7 @@ namespace Infraestructure.Repository.Repositories
 {
     public class RepositoryProduct : RepositoryGenerics<Produto>, IProduct
     {
-        #region Construtor
+        #region Construtores
 
         public RepositoryProduct() { _optionsBuilder = new DbContextOptions<ContextBase>(); }
 

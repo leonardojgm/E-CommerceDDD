@@ -1,6 +1,7 @@
 using ApplicationApp.Interfaces;
 using ApplicationApp.OpenApp;
 using Domain.Interfaces.Generics;
+using Domain.Interfaces.InterfaceCompraUsuario;
 using Domain.Interfaces.InterfaceProduct;
 using Domain.Interfaces.InterfaceServices;
 using Domain.Services;
@@ -10,7 +11,6 @@ using Infraestructure.Repository.Generics;
 using Infraestructure.Repository.Repositories;
 using Microsoft.AspNetCore.Builder;
 using Microsoft.AspNetCore.Hosting;
-using Microsoft.AspNetCore.Identity;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
@@ -45,9 +45,11 @@ namespace Web_ECommerce
             //Interface e Repositório
             services.AddSingleton(typeof(IGeneric<>), typeof(RepositoryGenerics<>));
             services.AddSingleton<IProduct,RepositoryProduct>();
+            services.AddSingleton<ICompraUsuario, RepositoryCompraUsuario>();
 
             //Interface Aplicação
             services.AddSingleton<InterfaceProductApp, AppProduct>();
+            services.AddSingleton<InterfaceCompraUsuarioApp, AppCompraUsuario>();
 
             //Interface Serviço
             services.AddSingleton<IServiceProduct, ServiceProduct>();
