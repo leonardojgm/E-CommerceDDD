@@ -9,34 +9,51 @@ namespace Entities.Entities
     {
         #region Propriedades
 
-        [Column("USR_CPF")] [Display(Name = "CPF")] [MaxLength(50)]
+        [Column("USR_CPF")] 
+        [Display(Name = "CPF")] 
+        [MaxLength(50)]
         public string CPF { get; set; }
 
-        [Column("USR_IDADE")] [Display(Name = "Idade")]
+        [Column("USR_IDADE")] 
+        [Display(Name = "Idade")]
         public int Idade { get; set; }
 
-        [Column("USR_NOME")] [Display(Name = "Nome")] [MaxLength(255)]
+        [Column("USR_NOME")] 
+        [Display(Name = "Nome")] 
+        [MaxLength(255)]
         public string Nome { get; set; }
 
-        [Column("USR_CEP")] [Display(Name = "CEP")] [MaxLength(15)]
+        [Column("USR_CEP")] 
+        [Display(Name = "CEP")] 
+        [MaxLength(15)]
         public string CEP { get; set; }
 
-        [Column("USR_ENDERECO")] [Display(Name = "Endereço")] [MaxLength(255)]
+        [Column("USR_ENDERECO")] 
+        [Display(Name = "Endereço")] 
+        [MaxLength(255)]
         public string Endereco { get; set; }
 
-        [Column("USR_COMPLEMENTO_ENDERECO")] [Display(Name = "Complemento de Endereço")] [MaxLength(450)]
+        [Column("USR_COMPLEMENTO_ENDERECO")] 
+        [Display(Name = "Complemento de Endereço")] 
+        [MaxLength(450)]
         public string ComplementoEndereco { get; set; }
 
-        [Column("USR_CELULAR")] [Display(Name = "Celular")] [MaxLength(20)]
+        [Column("USR_CELULAR")] 
+        [Display(Name = "Celular")] 
+        [MaxLength(20)]
         public string Celular { get; set; }
 
-        [Column("USR_TELEFONE")] [Display(Name = "Telefone")] [MaxLength(20)]
+        [Column("USR_TELEFONE")] 
+        [Display(Name = "Telefone")] 
+        [MaxLength(20)]
         public string Telefone { get; set; }
 
-        [Column("USR_ESTADO")] [Display(Name = "Estado")]
+        [Column("USR_ESTADO")] 
+        [Display(Name = "Estado")]
         public bool Estado { get; set; }
 
-        [Column("USR_TIPO")] [Display(Name = "Tipo")]
+        [Column("USR_TIPO")] 
+        [Display(Name = "Tipo")]
         public TipoUsuario? Tipo { get; set; }
 
         #endregion

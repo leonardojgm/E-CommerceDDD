@@ -52,7 +52,8 @@ namespace Web_ECommerce.Controllers
         }
 
         // POST: ProdutosController/Create
-        [HttpPost] [ValidateAntiForgeryToken]
+        [HttpPost] 
+        [ValidateAntiForgeryToken]
         public async Task<IActionResult> Create(Produto produto)
         {
             try
@@ -82,7 +83,8 @@ namespace Web_ECommerce.Controllers
         public async Task<IActionResult> Edit(int id) { return View(await _InterfaceProductApp.GetEntityById(id)); }
 
         // POST: ProdutosController/Edit/5
-        [HttpPost] [ValidateAntiForgeryToken]
+        [HttpPost] 
+        [ValidateAntiForgeryToken]
         public async Task<IActionResult> Edit(int id, Produto produto)
         {
             try
@@ -111,7 +113,8 @@ namespace Web_ECommerce.Controllers
         public async Task<IActionResult> Delete(int id) { return View(await _InterfaceProductApp.GetEntityById(id)); }
 
         // POST: ProdutosController/Delete/5
-        [HttpPost] [ValidateAntiForgeryToken]
+        [HttpPost] 
+        [ValidateAntiForgeryToken]
         public async Task<IActionResult> Delete(int id, Produto produto)
         {
             try
@@ -135,7 +138,8 @@ namespace Web_ECommerce.Controllers
             return idUsuario.Id;
         }
 
-        [HttpGet("/api/ListarProdutosComEstoque")] [AllowAnonymous]
+        [HttpGet("/api/ListarProdutosComEstoque")] 
+        [AllowAnonymous]
         public async Task<JsonResult> ListarProdutosComEstoque() { return Json(await _InterfaceProductApp.ListarPodutosComEstoque()); }
 
         public async Task<IActionResult> ListarProdutosCarrinhoUsuario()
@@ -147,7 +151,8 @@ namespace Web_ECommerce.Controllers
 
         public async Task<IActionResult> RemoverCarrinho(int id) { return View(await _InterfaceProductApp.ObterProdutosCarrinho(id)); }
 
-        [HttpPost] [ValidateAntiForgeryToken]
+        [HttpPost] 
+        [ValidateAntiForgeryToken]
         public async Task<IActionResult> RemoverCarrinho(int id, Produto produto)
         {
             try

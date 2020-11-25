@@ -10,19 +10,26 @@ namespace Entities.Entities
     {
         #region Propriedades
 
-        [Column("CUS_ID")] [Display(Name = "Código")]
+        [Column("CUS_ID")] 
+        [Display(Name = "Código")]
         public int Id { get; set; }
 
-        [Column(Order = 1)] [Display(Name = "Produto")] [ForeignKey("TB_PRODUTO")]
+        [Column(Order = 1)] 
+        [Display(Name = "Produto")] 
+        [ForeignKey("TB_PRODUTO")]
         public int IdProduto { get; set; }
 
-        [Column("CUS_ESTADO")] [Display(Name = "Estado")]
+        [Column("CUS_ESTADO")] 
+        [Display(Name = "Estado")]
         public EstadoCompra Estado { get; set; }
 
-        [Column("CUS_QTD")] [Display(Name = "Quantidade")]
+        [Column("CUS_QTD")] 
+        [Display(Name = "Quantidade")]
         public int QtdCompra { get; set; }
 
-        [Column(Order = 1)] [Display(Name = "Usuário")] [ForeignKey("ApplicationUser")]
+        [Column(Order = 1)] 
+        [Display(Name = "Usuário")] 
+        [ForeignKey("ApplicationUser")]
         public string UserId { get; set; }
 
         #endregion
