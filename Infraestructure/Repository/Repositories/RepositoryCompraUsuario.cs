@@ -4,10 +4,10 @@ using Entities.Entities.Enums;
 using Infraestructure.Configuration;
 using Infraestructure.Repository.Generics;
 using Microsoft.EntityFrameworkCore;
-using System.Threading.Tasks;
-using System.Linq;
-using System.Collections.Generic;
 using System;
+using System.Collections.Generic;
+using System.Linq;
+using System.Threading.Tasks;
 
 namespace Infraestructure.Repository.Repositories
 {

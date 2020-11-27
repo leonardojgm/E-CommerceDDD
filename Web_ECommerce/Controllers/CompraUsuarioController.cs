@@ -1,21 +1,24 @@
 ﻿using ApplicationApp.Interfaces;
 using Entities.Entities;
 using Entities.Entities.Enums;
+using Microsoft.AspNetCore.Hosting;
 using Microsoft.AspNetCore.Identity;
 using Microsoft.AspNetCore.Mvc;
 using System;
 using System.Threading.Tasks;
+using Web_ECommerce.Models;
 
 namespace Web_ECommerce.Controllers
 {
-    public class CompraUsuarioController : Controller
+    public class CompraUsuarioController : HelpQrCode
     {
         #region Construtores
 
-        public CompraUsuarioController(InterfaceCompraUsuarioApp InterfaceCompraUsuarioApp, UserManager<ApplicationUser> userManager)
+        public CompraUsuarioController(InterfaceCompraUsuarioApp InterfaceCompraUsuarioApp, UserManager<ApplicationUser> userManager, IWebHostEnvironment environment)
         {
             _InterfaceCompraUsuarioApp = InterfaceCompraUsuarioApp;
             _userManager = userManager;
+            _environment = environment;
         }
 
         #endregion
@@ -25,6 +28,8 @@ namespace Web_ECommerce.Controllers
         public readonly UserManager<ApplicationUser> _userManager;
 
         public readonly InterfaceCompraUsuarioApp _InterfaceCompraUsuarioApp;
+
+        private IWebHostEnvironment _environment;
 
         #endregion
 
@@ -99,6 +104,13 @@ namespace Web_ECommerce.Controllers
             else return RedirectToAction("FinalizarCompra");
         }
 
+        public async Task<IActionResult> Imprimir()
+        {
+            var usuario = await _userManager.GetUserAsync(User);
+            var compraUsuario = await _InterfaceCompraUsuarioApp.ProdutosComprados(usuario.Id);
+
+            return await Download(compraUsuario, _environment);
+        }
 
         #endregion
     }

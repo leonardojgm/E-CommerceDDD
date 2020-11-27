@@ -30,7 +30,7 @@ namespace Entities.Entities
         [MaxLength(20000)]
         public string Observacao { get; set; }
 
-        [Column("PRD_VALO")] 
+        [Column("PRD_VALO", TypeName="decimal(18,2)")] 
         [Display(Name = "Valor")]
         public decimal Valor { get; set; }
 
