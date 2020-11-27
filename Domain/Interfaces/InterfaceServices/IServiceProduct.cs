@@ -12,7 +12,7 @@ namespace Domain.Interfaces.InterfaceServices
 
         Task UpdateProduct(Produto product);
 
-        Task<List<Produto>> ListarProdutosComEstoque();
+        Task<List<Produto>> ListarProdutosComEstoque(string descricao);
 
         #endregion
     }

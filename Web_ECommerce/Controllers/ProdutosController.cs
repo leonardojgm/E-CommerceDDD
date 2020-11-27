@@ -150,7 +150,7 @@ namespace Web_ECommerce.Controllers
 
         [HttpGet("/api/ListarProdutosComEstoque")] 
         [AllowAnonymous]
-        public async Task<JsonResult> ListarProdutosComEstoque() { return Json(await _InterfaceProductApp.ListarPodutosComEstoque()); }
+        public async Task<JsonResult> ListarProdutosComEstoque(string descricao) { return Json(await _InterfaceProductApp.ListarPodutosComEstoque(descricao)); }
 
         public async Task<IActionResult> ListarProdutosCarrinhoUsuario()
         {
