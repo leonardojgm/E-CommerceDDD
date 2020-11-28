@@ -68,6 +68,9 @@ namespace Entities.Entities
         [Display(Name = "Url")]
         public string Url { get; set; }
 
+        [NotMapped]
+        public DateTime? DataCompra { get; set; }
+
         #endregion
 
         #region Relacionamentos

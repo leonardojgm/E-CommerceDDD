@@ -35,9 +35,13 @@ namespace ApplicationApp.OpenApp
 
         public async Task<CompraUsuario> CarrinhoCompras(string userId) { return await _IServicoCompraUsuario.CarrinhoCompras(userId); }
 
-        public async Task<CompraUsuario> ProdutosComprados(string userId) { return await _IServicoCompraUsuario.ProdutosComprados(userId); }
+        public async Task<CompraUsuario> ProdutosComprados(string userId, int? idCompra = null) { return await _IServicoCompraUsuario.ProdutosComprados(userId, idCompra); }
 
         public async Task<bool> ConfirmaCompraCarrinhoUsuario(string userId) { return await _ICompraUsuario.ConfirmaCompraCarrinhoUsuario(userId); }
+
+        public async Task<List<CompraUsuario>> MinhasCompras (string userId) { return await _IServicoCompraUsuario.MinhasCompras(userId); }
+
+        public async Task AdicionarProdutoCarrinho(string userId, CompraUsuario compraUsuario) { await _IServicoCompraUsuario.AdicionarProdutoCarrinho(userId, compraUsuario); }
 
         #endregion
 

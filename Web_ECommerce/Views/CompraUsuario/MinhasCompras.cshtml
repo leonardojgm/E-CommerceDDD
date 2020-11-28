@@ -1,4 +1,4 @@
-﻿@model Entities.Entities.CompraUsuario
+﻿@model IEnumerable<Entities.Entities.CompraUsuario>
 
 @{
     ViewData["Title"] = "MinhasCompras";
@@ -6,85 +6,88 @@
 <div>
     <h4>Minhas Compras</h4>
 
-    @if (Model.ListaProdutos.Any())
-    {
-        <br />
-        <a class="nav-link text-dark" asp-area="" asp-controller="CompraUsuario" asp-action="Imprimir">Imprimir Boleto</a>
-        <hr />
-        <dl class="row">
-            <dt class="col-sm-2">
-                @Html.DisplayNameFor(model => model.EnderecoCompleto)
-            </dt>
-            <dd class="col-sm-10">
-                @Html.DisplayFor(model => model.EnderecoCompleto)
-            </dd>
-            <dt class="col-sm-2">
-                @Html.DisplayNameFor(model => model.ApplicationUser.CEP)
-            </dt>
-            <dd class="col-sm-10">
-                @Html.DisplayFor(model => model.ApplicationUser.CEP)
-            </dd>
-            <dt class="col-sm-2">
-                @Html.DisplayNameFor(model => model.QuantidadeProdutos)
-            </dt>
-            <dd class="col-sm-10">
-                @Html.DisplayFor(model => model.QuantidadeProdutos)
-            </dd>
-            <dt class="col-sm-2">
-                @Html.DisplayNameFor(model => model.ValorTotal)
-            </dt>
-            <dd class="col-sm-10">
-                @Html.DisplayFor(model => model.ValorTotal)
-            </dd>
-        </dl>
+    @foreach (var item in Model)
+     { 
+         if (item.ListaProdutos.Any())
+         {
+            <br />
+            <a class="nav-link text-dark" asp-area="" asp-controller="CompraUsuario" asp-route-id="@item.Id" asp-action="Imprimir">Imprimir Boleto</a>
+            <hr />
+            <dl class="row">
+                <dt class="col-sm-2">
+                    @Html.DisplayNameFor(model => model.EnderecoCompleto)
+                </dt>
+                <dd class="col-sm-10">
+                    @Html.DisplayFor(model => item.EnderecoCompleto)
+                </dd>
+                <dt class="col-sm-2">
+                    @Html.DisplayNameFor(model => model.ApplicationUser.CEP)
+                </dt>
+                <dd class="col-sm-10">
+                    @Html.DisplayFor(model => item.ApplicationUser.CEP)
+                </dd>
+                <dt class="col-sm-2">
+                    @Html.DisplayNameFor(model => model.QuantidadeProdutos)
+                </dt>
+                <dd class="col-sm-10">
+                    @Html.DisplayFor(model => item.QuantidadeProdutos)
+                </dd>
+                <dt class="col-sm-2">
+                    @Html.DisplayNameFor(model => model.ValorTotal)
+                </dt>
+                <dd class="col-sm-10">
+                    @Html.DisplayFor(model => item.ValorTotal)
+                </dd>
+            </dl>
 
-        <h4>Produtos Comprados</h4>
+            <h4>Produtos Comprados</h4>
 
-        <table class="table">
-            <thred>
-                <tr>
-                    <th>Nome</th>
-                    <th>Imagem</th>
-                    <th>Descrição</th>
-                    <th>Observação</th>
-                    <th>Valor</th>
-                    <th>Quantidade</th>
-                </tr>
-            </thred>
-            <tbody>
-                @foreach (var item in Model.ListaProdutos)
-                {
+            <table class="table">
+                <thred>
                     <tr>
-                        <td>
-                            @Html.DisplayNameFor(modelItem => item.Nome)
-                        </td>
-                        <td>
-                            @{
-                                if (!string.IsNullOrWhiteSpace(item.Url))
-                                {
-                                    <img width="80" height="80" src="@item.Url" />
-                                }
-                            }
-                        </td>
-                        <td>
-                            @Html.DisplayNameFor(modelItem => item.Descricao)
-                        </td>
-                        <td>
-                            @Html.DisplayNameFor(modelItem => item.Observacao)
-                        </td>
-                        <td>
-                            @Html.DisplayNameFor(modelItem => item.Valor)
-                        </td>
-                        <td>
-                            @Html.DisplayNameFor(modelItem => item.QtdCompra)
-                        </td>
+                        <th>Nome</th>
+                        <th>Imagem</th>
+                        <th>Descrição</th>
+                        <th>Observação</th>
+                        <th>Valor</th>
+                        <th>Quantidade</th>
                     </tr>
-                }
-            </tbody>
-        </table>
-    }
-    else
-    {
-        <h4>Não existe compras</h4>
-    }
+                </thred>
+                <tbody>
+                    @foreach (var produto in item.ListaProdutos)
+                    {
+                        <tr>
+                            <td>
+                                @Html.DisplayNameFor(modelItem => produto.Nome)
+                            </td>
+                            <td>
+                                @{
+                                    if (!string.IsNullOrWhiteSpace(produto.Url))
+                                    {
+                                        <img width="80" height="80" src="@produto.Url" />
+                                    }
+                                }
+                            </td>
+                            <td>
+                                @Html.DisplayNameFor(modelItem => produto.Descricao)
+                            </td>
+                            <td>
+                                @Html.DisplayNameFor(modelItem => produto.Observacao)
+                            </td>
+                            <td>
+                                @Html.DisplayNameFor(modelItem => produto.Valor)
+                            </td>
+                            <td>
+                                @Html.DisplayNameFor(modelItem => produto.QtdCompra)
+                            </td>
+                        </tr>
+                    }
+                </tbody>
+            </table>
+         }
+         else
+         {
+            <h4>Não existe compras</h4>
+         }
+     }
 </div>

@@ -3,7 +3,7 @@ using Microsoft.EntityFrameworkCore.Migrations;
 
 namespace Infraestructure.Migrations
 {
-    public partial class InitialCreate : Migration
+    public partial class UpdateBase : Migration
     {
         protected override void Up(MigrationBuilder migrationBuilder)
         {
@@ -171,12 +171,13 @@ namespace Infraestructure.Migrations
                     PRD_NOME = table.Column<string>(maxLength: 255, nullable: true),
                     PRD_DESCRICAO = table.Column<string>(maxLength: 150, nullable: true),
                     PRD_OBSERVACAO = table.Column<string>(maxLength: 20000, nullable: true),
-                    PRD_VALO = table.Column<decimal>(nullable: false),
+                    PRD_VALO = table.Column<decimal>(type: "decimal(18,2)", nullable: false),
                     PRD_QTD_ESTOQUE = table.Column<int>(nullable: false),
                     UserId = table.Column<string>(nullable: true),
                     PRD_ESTADO = table.Column<bool>(nullable: false),
                     PRD_DATA_CADASTRO = table.Column<DateTime>(nullable: false),
-                    PRD_DATA_ALTERACAO = table.Column<DateTime>(nullable: false)
+                    PRD_DATA_ALTERACAO = table.Column<DateTime>(nullable: false),
+                    PRD_URL = table.Column<string>(nullable: true)
                 },
                 constraints: table =>
                 {

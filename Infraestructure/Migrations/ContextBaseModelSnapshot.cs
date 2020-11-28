@@ -15,7 +15,7 @@ namespace Infraestructure.Migrations
         {
 #pragma warning disable 612, 618
             modelBuilder
-                .HasAnnotation("ProductVersion", "3.1.10")
+                .HasAnnotation("ProductVersion", "3.1.8")
                 .HasAnnotation("Relational:MaxIdentifierLength", 128)
                 .HasAnnotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn);
 
@@ -131,6 +131,32 @@ namespace Infraestructure.Migrations
                     b.ToTable("AspNetUsers");
                 });
 
+            modelBuilder.Entity("Entities.Entities.Compra", b =>
+                {
+                    b.Property<int>("Id")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnName("COM_ID")
+                        .HasColumnType("int")
+                        .HasAnnotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn);
+
+                    b.Property<DateTime?>("DataCompra")
+                        .HasColumnName("COM_DATA_COMPRA")
+                        .HasColumnType("datetime2");
+
+                    b.Property<int>("Estado")
+                        .HasColumnName("COM_ESTADO")
+                        .HasColumnType("int");
+
+                    b.Property<string>("UserId")
+                        .HasColumnType("nvarchar(450)");
+
+                    b.HasKey("Id");
+
+                    b.HasIndex("UserId");
+
+                    b.ToTable("TB_COMPRA");
+                });
+
             modelBuilder.Entity("Entities.Entities.CompraUsuario", b =>
                 {
                     b.Property<int>("Id")
@@ -139,8 +165,14 @@ namespace Infraestructure.Migrations
                         .HasColumnType("int")
                         .HasAnnotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn);
 
+                    b.Property<int?>("CompraId")
+                        .HasColumnType("int");
+
                     b.Property<int>("Estado")
                         .HasColumnName("CUS_ESTADO")
+                        .HasColumnType("int");
+
+                    b.Property<int>("IdCompra")
                         .HasColumnType("int");
 
                     b.Property<int>("IdProduto")
@@ -157,6 +189,8 @@ namespace Infraestructure.Migrations
                         .HasColumnType("nvarchar(450)");
 
                     b.HasKey("Id");
+
+                    b.HasIndex("CompraId");
 
                     b.HasIndex("ProdutoId");
 
@@ -357,8 +391,19 @@ namespace Infraestructure.Migrations
                     b.ToTable("AspNetUserTokens");
                 });
 
+            modelBuilder.Entity("Entities.Entities.Compra", b =>
+                {
+                    b.HasOne("Entities.Entities.ApplicationUser", "ApplicationUser")
+                        .WithMany()
+                        .HasForeignKey("UserId");
+                });
+
             modelBuilder.Entity("Entities.Entities.CompraUsuario", b =>
                 {
+                    b.HasOne("Entities.Entities.Compra", "Compra")
+                        .WithMany()
+                        .HasForeignKey("CompraId");
+
                     b.HasOne("Entities.Entities.Produto", "Produto")
                         .WithMany()
                         .HasForeignKey("ProdutoId");
