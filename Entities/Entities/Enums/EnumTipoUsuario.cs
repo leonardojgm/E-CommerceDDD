@@ -1,6 +1,6 @@
 ﻿namespace Entities.Entities.Enums
 {
-    public enum TipoUsuario
+    public enum EnumTipoUsuario
     {
         Administrador = 1,
         Comum = 2,

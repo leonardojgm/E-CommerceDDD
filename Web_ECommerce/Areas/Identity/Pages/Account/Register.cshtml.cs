@@ -124,7 +124,7 @@ namespace Web_ECommerce.Areas.Identity.Pages.Account
                     Celular = Input.Celular,
                     Telefone = Input.Telefone,
                     Estado = true,
-                    Tipo = TipoUsuario.Comum,
+                    Tipo = EnumTipoUsuario.Comum,
                 };
 
                 var result = await _userManager.CreateAsync(user, Input.Password);

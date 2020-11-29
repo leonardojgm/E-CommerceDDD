@@ -22,7 +22,7 @@ namespace Entities.Entities
 
         [Column("CUS_ESTADO")]
         [Display(Name = "Estado")]
-        public EstadoCompra Estado { get; set; }
+        public EnumEstadoCompra Estado { get; set; }
 
         [Column("CUS_QTD")]
         [Display(Name = "Quantidade")]

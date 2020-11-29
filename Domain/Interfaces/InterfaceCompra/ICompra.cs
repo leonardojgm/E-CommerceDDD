@@ -9,7 +9,7 @@ namespace Domain.Interfaces.InterfaceCompra
     {
         #region Métodos
 
-        public Task<Compra> CompraPorEstado(string userId, EstadoCompra estado);
+        public Task<Compra> CompraPorEstado(string userId, EnumEstadoCompra estado);
 
         #endregion
     }

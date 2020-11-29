@@ -1,21 +1,19 @@
-﻿using Microsoft.AspNetCore.Mvc;
+﻿using ApplicationApp.Interfaces;
+using Entities.Entities;
+using Microsoft.AspNetCore.Identity;
+using Microsoft.AspNetCore.Mvc;
 using Microsoft.Extensions.Logging;
 using System.Diagnostics;
 using Web_ECommerce.Models;
 
 namespace Web_ECommerce.Controllers
 {
-    public class HomeController : Controller
+    [LogActionFilter]
+    public class HomeController : BaseController
     {
         #region Construtores
 
-        public HomeController(ILogger<HomeController> logger) { _logger = logger; }
-
-        #endregion
-
-        #region Propriedades
-
-        private readonly ILogger<HomeController> _logger;
+        public HomeController(ILogger<BaseController> logger, UserManager<ApplicationUser> userManager, InterfaceLogSistemaApp InterfaceLogSistemaApp) : base(logger, userManager, InterfaceLogSistemaApp) { }
 
         #endregion
 

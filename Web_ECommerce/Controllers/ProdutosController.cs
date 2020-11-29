@@ -1,9 +1,11 @@
 ﻿using ApplicationApp.Interfaces;
 using Entities.Entities;
+using Entities.Entities.Enums;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Hosting;
 using Microsoft.AspNetCore.Identity;
 using Microsoft.AspNetCore.Mvc;
+using Microsoft.Extensions.Logging;
 using System;
 using System.IO;
 using System.Linq;
@@ -14,23 +16,22 @@ using System.Threading.Tasks;
 namespace Web_ECommerce.Controllers
 {
     [Authorize]
-    public class ProdutosController : Controller
+    [LogActionFilter]
+    public class ProdutosController : BaseController
     {
         #region Construtores
 
-        public ProdutosController(InterfaceCompraUsuarioApp InterfaceCompraUsuarioApp, InterfaceProductApp InterfaceProductApp, UserManager<ApplicationUser> userManager, IWebHostEnvironment environment)
+        public ProdutosController(InterfaceCompraUsuarioApp InterfaceCompraUsuarioApp, InterfaceProductApp InterfaceProductApp, UserManager<ApplicationUser> userManager, IWebHostEnvironment environment
+            , ILogger<BaseController> logger, InterfaceLogSistemaApp InterfaceLogSistemaApp) : base(logger, userManager, InterfaceLogSistemaApp)
         {
             _InterfaceCompraUsuarioApp = InterfaceCompraUsuarioApp;
             _InterfaceProductApp = InterfaceProductApp;
-            _userManager = userManager;
             _environment = environment;
         }
 
         #endregion
 
         #region Propriedades
-
-        public readonly UserManager<ApplicationUser> _userManager;
 
         public readonly InterfaceProductApp _InterfaceProductApp;
 
@@ -54,10 +55,7 @@ namespace Web_ECommerce.Controllers
         public async Task<IActionResult> Details(int id) { return View(await _InterfaceProductApp.GetEntityById(id)); }
 
         // GET: ProdutosController/Create
-        public async Task<IActionResult> Create()
-        {
-            return View();
-        }
+        public async Task<IActionResult> Create() { return View(); }
 
         // POST: ProdutosController/Create
         [HttpPost] 
@@ -80,9 +78,13 @@ namespace Web_ECommerce.Controllers
                 }
 
                 await SalvarImagemProduto(produto);
+
+                await LogEcommerce(EnumTipoLog.Informativo, produto);
             }
-            catch
+            catch (Exception erro)
             {
+                await LogEcommerce(EnumTipoLog.Erro, erro);
+
                 return View("Create", produto);
             }
 
@@ -111,10 +113,14 @@ namespace Web_ECommerce.Controllers
                     return View("Edit", produto);
                 }
             }
-            catch
+            catch (Exception erro)
             {
+                await LogEcommerce(EnumTipoLog.Erro, erro);
+
                 return View("Edit", produto);
             }
+
+            await LogEcommerce(EnumTipoLog.Informativo, produto);
 
             return RedirectToAction(nameof(Index));
         }
@@ -133,19 +139,16 @@ namespace Web_ECommerce.Controllers
 
                 await _InterfaceProductApp.Delete(produtoDeletar);
 
+                await LogEcommerce(EnumTipoLog.Informativo, produtoDeletar);
+
                 return RedirectToAction(nameof(Index));
             }
-            catch
+            catch (Exception erro)
             {
+                await LogEcommerce(EnumTipoLog.Erro, erro);
+
                 return View();
             }
-        }
-
-        private async Task<string> RetornarIdUsuarioLogado()
-        {
-            var idUsuario = await _userManager.GetUserAsync(User);
-
-            return idUsuario.Id;
         }
 
         [HttpGet("/api/ListarProdutosComEstoque")] 
@@ -171,10 +174,14 @@ namespace Web_ECommerce.Controllers
 
                 await _InterfaceCompraUsuarioApp.Delete(produtoDeletar);
 
+                await LogEcommerce(EnumTipoLog.Informativo, produtoDeletar);
+
                 return RedirectToAction(nameof(ListarProdutosCarrinhoUsuario));
             }
-            catch
+            catch (Exception erro)
             {
+                await LogEcommerce(EnumTipoLog.Erro, erro);
+
                 return View();
             }
         }
@@ -198,16 +205,16 @@ namespace Web_ECommerce.Controllers
                     var diretorioArquivoSalvar = string.Concat(webRoot, "\\imgProdutos\\", nomeArquivo);
 
                     produtoTela.Imagem.CopyTo(new FileStream(diretorioArquivoSalvar, FileMode.Create));
-
                     produto.Url = string.Concat("https://localhost:5001", "/imgProdutos/", nomeArquivo);
 
                     await _InterfaceProductApp.UpdateProduct(produto);
+
+                    await LogEcommerce(EnumTipoLog.Informativo, produto);
                 }
             }
             catch (Exception erro)
             {
-                ViewBag.Erro = true;
-                ViewBag.Mensagem = erro.Message;
+                await LogEcommerce(EnumTipoLog.Erro, erro);
             }
         }
 

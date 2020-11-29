@@ -25,7 +25,7 @@ namespace Infraestructure.Repository.Repositories
         #region Métodos
 
         #region ICompra
-        public async Task<Compra> CompraPorEstado(string userId, EstadoCompra estado)
+        public async Task<Compra> CompraPorEstado(string userId, EnumEstadoCompra estado)
         {
             using (var banco = new ContextBase(_optionsbuilder))
             {

@@ -54,7 +54,7 @@ namespace Entities.Entities
 
         [Column("USR_TIPO")] 
         [Display(Name = "Tipo")]
-        public TipoUsuario? Tipo { get; set; }
+        public EnumTipoUsuario? Tipo { get; set; }
 
         #endregion
     }

@@ -12,9 +12,9 @@ namespace Domain.Interfaces.InterfaceCompraUsuario
 
         public Task<int> QuantidadeProdutoCarrinhoUsuario(string userId);
 
-        public Task<CompraUsuario> ProdutosCompradosPorEstado(string userId, EstadoCompra estado, int? idCompra = null);
+        public Task<CompraUsuario> ProdutosCompradosPorEstado(string userId, EnumEstadoCompra estado, int? idCompra = null);
 
-        public Task<List<CompraUsuario>> MinhasComprasPorEstado(string userId, EstadoCompra estado);
+        public Task<List<CompraUsuario>> MinhasComprasPorEstado(string userId, EnumEstadoCompra estado);
 
         public Task<bool> ConfirmaCompraCarrinhoUsuario(string userId);
 

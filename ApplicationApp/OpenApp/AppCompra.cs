@@ -28,7 +28,7 @@ namespace ApplicationApp.OpenApp
 
         #region InterfaceCompraApp
 
-        public async Task<Compra> CompraPorEstado(string userId, EstadoCompra estado) { return await _ICompra.CompraPorEstado(userId, estado); }
+        public async Task<Compra> CompraPorEstado(string userId, EnumEstadoCompra estado) { return await _ICompra.CompraPorEstado(userId, estado); }
 
         #endregion
 

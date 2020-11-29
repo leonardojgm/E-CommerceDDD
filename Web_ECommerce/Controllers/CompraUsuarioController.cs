@@ -4,20 +4,22 @@ using Entities.Entities.Enums;
 using Microsoft.AspNetCore.Hosting;
 using Microsoft.AspNetCore.Identity;
 using Microsoft.AspNetCore.Mvc;
+using Microsoft.Extensions.Logging;
 using System;
 using System.Threading.Tasks;
 using Web_ECommerce.Models;
 
 namespace Web_ECommerce.Controllers
 {
+    [LogActionFilter]
     public class CompraUsuarioController : HelpQrCode
     {
         #region Construtores
 
-        public CompraUsuarioController(InterfaceCompraUsuarioApp InterfaceCompraUsuarioApp, UserManager<ApplicationUser> userManager, IWebHostEnvironment environment)
+        public CompraUsuarioController(InterfaceCompraUsuarioApp InterfaceCompraUsuarioApp, UserManager<ApplicationUser> userManager, IWebHostEnvironment environment, ILogger<BaseController> logger
+            , InterfaceLogSistemaApp InterfaceLogSistemaApp) : base(logger, userManager, InterfaceLogSistemaApp)
         {
             _InterfaceCompraUsuarioApp = InterfaceCompraUsuarioApp;
-            _userManager = userManager;
             _environment = environment;
         }
 
@@ -38,16 +40,16 @@ namespace Web_ECommerce.Controllers
         [HttpPost("/api/AdicionarProdutoCarrinho")]
         public async Task<JsonResult> AdicionarProdutoCarrinho(string id, string nome, string qtd) 
         {
-            var usuario = await _userManager.GetUserAsync(User);
+            var idUsuario = await RetornarIdUsuarioLogado();
 
-            if (usuario != null)
+            if (idUsuario != null)
             {
-                await _InterfaceCompraUsuarioApp.AdicionarProdutoCarrinho(usuario.Id, new CompraUsuario
+                await _InterfaceCompraUsuarioApp.AdicionarProdutoCarrinho(idUsuario, new CompraUsuario
                 {
                     IdProduto = Convert.ToInt32(id),
                     QtdCompra = Convert.ToInt32(qtd),
-                    Estado = EstadoCompra.Produto_Carrinho,
-                    UserId = usuario.Id,
+                    Estado = EnumEstadoCompra.Produto_Carrinho,
+                    UserId = idUsuario,
                 });
 
                 return Json(new { sucesso = true });
@@ -59,12 +61,12 @@ namespace Web_ECommerce.Controllers
         [HttpGet("/api/QtdProdutoCarrinho")]
         public async Task<JsonResult> QtdProdutoCarrinho()
         {
-            var usuario = await _userManager.GetUserAsync(User);
+            var idUsuario = await RetornarIdUsuarioLogado();
             var qtd = 0;
 
-            if (usuario != null)
+            if (idUsuario != null)
             {
-                qtd = await _InterfaceCompraUsuarioApp.QuantidadeProdutoCarrinhoUsuario(usuario.Id);
+                qtd = await _InterfaceCompraUsuarioApp.QuantidadeProdutoCarrinhoUsuario(idUsuario);
 
                 return Json(new { sucesso = true, qtd = qtd });
             }
@@ -74,16 +76,16 @@ namespace Web_ECommerce.Controllers
 
         public async Task<IActionResult> FinalizarCompra()
         {
-            var usuario = await _userManager.GetUserAsync(User);
-            var compraUsuario = await _InterfaceCompraUsuarioApp.CarrinhoCompras(usuario.Id);
+            var idUsuario = await RetornarIdUsuarioLogado();
+            var compraUsuario = await _InterfaceCompraUsuarioApp.CarrinhoCompras(idUsuario);
 
             return View(compraUsuario);
         }
 
         public async Task<IActionResult> MinhasCompras(bool mensagem = false)
         {
-            var usuario = await _userManager.GetUserAsync(User);
-            var compraUsuario = await _InterfaceCompraUsuarioApp.MinhasCompras(usuario.Id);
+            var idUsuario = await RetornarIdUsuarioLogado();
+            var compraUsuario = await _InterfaceCompraUsuarioApp.MinhasCompras(idUsuario);
 
             if (mensagem)
             {
@@ -96,8 +98,8 @@ namespace Web_ECommerce.Controllers
 
         public async Task<IActionResult> ConfirmarCompra()
         {
-            var usuario = await _userManager.GetUserAsync(User);
-            var sucesso = await _InterfaceCompraUsuarioApp.ConfirmaCompraCarrinhoUsuario(usuario.Id);
+            var idUsuario = await RetornarIdUsuarioLogado();
+            var sucesso = await _InterfaceCompraUsuarioApp.ConfirmaCompraCarrinhoUsuario(idUsuario);
 
             if (sucesso) return RedirectToAction("MinhasCompras", new { mensagem = true });
 
@@ -106,8 +108,8 @@ namespace Web_ECommerce.Controllers
 
         public async Task<IActionResult> Imprimir(int id)
         {
-            var usuario = await _userManager.GetUserAsync(User);
-            var compraUsuario = await _InterfaceCompraUsuarioApp.ProdutosComprados(usuario.Id, id);
+            var idUsuario = await RetornarIdUsuarioLogado();
+            var compraUsuario = await _InterfaceCompraUsuarioApp.ProdutosComprados(idUsuario, id);
 
             return await Download(compraUsuario, _environment);
         }

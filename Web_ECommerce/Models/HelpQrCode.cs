@@ -1,6 +1,9 @@
-﻿using Entities.Entities;
+﻿using ApplicationApp.Interfaces;
+using Entities.Entities;
 using Microsoft.AspNetCore.Hosting;
+using Microsoft.AspNetCore.Identity;
 using Microsoft.AspNetCore.Mvc;
+using Microsoft.Extensions.Logging;
 using PdfSharpCore;
 using PdfSharpCore.Drawing;
 using PdfSharpCore.Drawing.Layout;
@@ -11,11 +14,19 @@ using System.Drawing;
 using System.Drawing.Imaging;
 using System.IO;
 using System.Threading.Tasks;
+using Web_ECommerce.Controllers;
 
 namespace Web_ECommerce.Models
 {
-    public class HelpQrCode : Controller
+    [LogActionFilter]
+    public class HelpQrCode : BaseController
     {
+        #region Construtores
+
+        public HelpQrCode(ILogger<BaseController> logger, UserManager<ApplicationUser> userManager, InterfaceLogSistemaApp InterfaceLogSistemaApp) : base(logger, userManager, InterfaceLogSistemaApp) { }
+
+        #endregion
+
         #region Métodos
 
         private static byte[] BitmapToBytes(Bitmap img)

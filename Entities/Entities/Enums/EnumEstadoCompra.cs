@@ -1,6 +1,6 @@
 ﻿namespace Entities.Entities.Enums
 {
-    public enum EstadoCompra
+    public enum EnumEstadoCompra
     {
         Produto_Carrinho = 1,
         Produto_Comprado = 2,

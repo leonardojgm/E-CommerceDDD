@@ -32,22 +32,22 @@ namespace Domain.Services
 
         #region IServicoCompraUsuario
 
-        public async Task<CompraUsuario> CarrinhoCompras(string userId) { return await _ICompraUsuario.ProdutosCompradosPorEstado(userId,EstadoCompra.Produto_Carrinho); }
+        public async Task<CompraUsuario> CarrinhoCompras(string userId) { return await _ICompraUsuario.ProdutosCompradosPorEstado(userId,EnumEstadoCompra.Produto_Carrinho); }
 
-        public async Task<CompraUsuario> ProdutosComprados(string userId, int? idCompra = null) { return await _ICompraUsuario.ProdutosCompradosPorEstado(userId, EstadoCompra.Produto_Comprado, idCompra); }
+        public async Task<CompraUsuario> ProdutosComprados(string userId, int? idCompra = null) { return await _ICompraUsuario.ProdutosCompradosPorEstado(userId, EnumEstadoCompra.Produto_Comprado, idCompra); }
 
-        public async Task<List<CompraUsuario>> MinhasCompras(string userId) { return await _ICompraUsuario.MinhasComprasPorEstado(userId, EstadoCompra.Produto_Comprado); }
+        public async Task<List<CompraUsuario>> MinhasCompras(string userId) { return await _ICompraUsuario.MinhasComprasPorEstado(userId, EnumEstadoCompra.Produto_Comprado); }
 
         public async Task AdicionarProdutoCarrinho(string userId, CompraUsuario compraUsuario) 
         {
-            var compra = await _ICompra.CompraPorEstado(userId, EstadoCompra.Produto_Carrinho);
+            var compra = await _ICompra.CompraPorEstado(userId, EnumEstadoCompra.Produto_Carrinho);
             
             if (compra == null)
             {
                 compra = new Compra
                 {
                     UserId = userId,
-                    Estado = EstadoCompra.Produto_Carrinho,
+                    Estado = EnumEstadoCompra.Produto_Carrinho,
                 };
 
                 await _ICompra.Add(compra);

@@ -17,7 +17,7 @@ namespace Entities.Entities
 
         [Column("COM_ESTADO")]
         [Display(Name = "Estado")]
-        public EstadoCompra Estado { get; set; }
+        public EnumEstadoCompra Estado { get; set; }
 
         [Column("COM_DATA_COMPRA")]
         [Display(Name = "Data Compra")]

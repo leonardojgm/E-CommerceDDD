@@ -31,10 +31,10 @@ namespace Infraestructure.Repository.Repositories
 
         public async Task<int> QuantidadeProdutoCarrinhoUsuario(string userId)
         {
-            using(var banco = new ContextBase(_optionsBuilder)) { return await banco.CompraUsuario.CountAsync(c => c.UserId.Equals(userId) && c.Estado == EstadoCompra.Produto_Carrinho); }
+            using(var banco = new ContextBase(_optionsBuilder)) { return await banco.CompraUsuario.CountAsync(c => c.UserId.Equals(userId) && c.Estado == EnumEstadoCompra.Produto_Carrinho); }
         }
 
-        public async Task<CompraUsuario> ProdutosCompradosPorEstado(string userId, EstadoCompra estado, int? idCompra = null)
+        public async Task<CompraUsuario> ProdutosCompradosPorEstado(string userId, EnumEstadoCompra estado, int? idCompra = null)
         {
             using (var banco = new ContextBase(_optionsBuilder)) 
             {
@@ -79,18 +79,18 @@ namespace Infraestructure.Repository.Repositories
 
                     var produtosCarrinhoUsuario = await (from p in banco.Produto
                                                          join c in banco.CompraUsuario on p.Id equals c.IdProduto
-                                                         where c.UserId.Equals(userId) && c.Estado == EstadoCompra.Produto_Carrinho
+                                                         where c.UserId.Equals(userId) && c.Estado == EnumEstadoCompra.Produto_Carrinho
                                                          select c).AsNoTracking().ToListAsync();
 
                     produtosCarrinhoUsuario.ForEach(p => 
                     {
                         compraUsuario.IdCompra = p.IdCompra;
-                        p.Estado = EstadoCompra.Produto_Comprado; 
+                        p.Estado = EnumEstadoCompra.Produto_Comprado; 
                     });
 
                     var compra = await banco.Compra.AsNoTracking().FirstOrDefaultAsync(c => c.Id == compraUsuario.IdCompra);
 
-                    if (compra != null) compra.Estado = EstadoCompra.Produto_Comprado;
+                    if (compra != null) compra.Estado = EnumEstadoCompra.Produto_Comprado;
 
                     banco.Update(compra);
                     banco.UpdateRange(produtosCarrinhoUsuario);
@@ -106,7 +106,7 @@ namespace Infraestructure.Repository.Repositories
             }
         }
 
-        public async Task<List<CompraUsuario>> MinhasComprasPorEstado(string userId, EstadoCompra estado)
+        public async Task<List<CompraUsuario>> MinhasComprasPorEstado(string userId, EnumEstadoCompra estado)
         {
             var retorno = new List<CompraUsuario>();
 
