@@ -10,6 +10,7 @@ using System.Threading.Tasks;
 
 namespace Web_ECommerce.Controllers
 {
+    [LogActionFilter]
     public class BaseController : Controller
     {
         #region Construtores
