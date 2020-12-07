@@ -51,8 +51,8 @@ namespace Infraestructure.Configuration
 
         private string GetStringConectionConfig()
         {
-            return "Server=tcp:devecommerceddd.database.windows.net,1433;Initial Catalog=Dev;Persist Security Info=False;User ID=leonardo;Password=lEON1478;MultipleActiveResultSets=False;Encrypt=True;TrustServerCertificate=False;Connection Timeout=30;";
-            //return "Data Source=DESKTOP-RPGUSJ3;Initial Catalog=DDD_ECOMMERCE;Integrated Security=False;User ID=sa;Password=1234;Connect Timeout=15;Encrypt=False;TrustServerCertificate=False";
+            //return "Server=tcp:devecommerceddd.database.windows.net,1433;Initial Catalog=Dev;Persist Security Info=False;User ID=leonardo;Password=lEON1478;MultipleActiveResultSets=False;Encrypt=True;TrustServerCertificate=False;Connection Timeout=30;";
+            return "Data Source=DESKTOP-RPGUSJ3;Initial Catalog=DDD_ECOMMERCE;Integrated Security=False;User ID=sa;Password=1234;Connect Timeout=15;Encrypt=False;TrustServerCertificate=False";
         }
 
         #endregion

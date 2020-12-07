@@ -3,7 +3,7 @@ using Microsoft.EntityFrameworkCore.Migrations;
 
 namespace Infraestructure.Migrations
 {
-    public partial class UpdateBase : Migration
+    public partial class InitialCreate : Migration
     {
         protected override void Up(MigrationBuilder migrationBuilder)
         {
@@ -163,6 +163,51 @@ namespace Infraestructure.Migrations
                 });
 
             migrationBuilder.CreateTable(
+                name: "TB_COMPRA",
+                columns: table => new
+                {
+                    COM_ID = table.Column<int>(nullable: false)
+                        .Annotation("SqlServer:Identity", "1, 1"),
+                    COM_ESTADO = table.Column<int>(nullable: false),
+                    COM_DATA_COMPRA = table.Column<DateTime>(nullable: true),
+                    UserId = table.Column<string>(nullable: true)
+                },
+                constraints: table =>
+                {
+                    table.PrimaryKey("PK_TB_COMPRA", x => x.COM_ID);
+                    table.ForeignKey(
+                        name: "FK_TB_COMPRA_AspNetUsers_UserId",
+                        column: x => x.UserId,
+                        principalTable: "AspNetUsers",
+                        principalColumn: "Id",
+                        onDelete: ReferentialAction.Restrict);
+                });
+
+            migrationBuilder.CreateTable(
+                name: "TB_LOGSISTEMA",
+                columns: table => new
+                {
+                    Id = table.Column<int>(nullable: false)
+                        .Annotation("SqlServer:Identity", "1, 1"),
+                    Nome = table.Column<string>(nullable: true),
+                    LOG_JSONINFORMACAO = table.Column<string>(nullable: true),
+                    LOG_TIPOLOG = table.Column<int>(nullable: false),
+                    LOG_CONTROLLER = table.Column<string>(nullable: true),
+                    LOG_ACTION = table.Column<string>(nullable: true),
+                    UserId = table.Column<string>(nullable: true)
+                },
+                constraints: table =>
+                {
+                    table.PrimaryKey("PK_TB_LOGSISTEMA", x => x.Id);
+                    table.ForeignKey(
+                        name: "FK_TB_LOGSISTEMA_AspNetUsers_UserId",
+                        column: x => x.UserId,
+                        principalTable: "AspNetUsers",
+                        principalColumn: "Id",
+                        onDelete: ReferentialAction.Restrict);
+                });
+
+            migrationBuilder.CreateTable(
                 name: "TB_PRODUTO",
                 columns: table => new
                 {
@@ -200,11 +245,19 @@ namespace Infraestructure.Migrations
                     CUS_ESTADO = table.Column<int>(nullable: false),
                     CUS_QTD = table.Column<int>(nullable: false),
                     UserId = table.Column<string>(nullable: true),
-                    ProdutoId = table.Column<int>(nullable: true)
+                    IdCompra = table.Column<int>(nullable: false),
+                    ProdutoId = table.Column<int>(nullable: true),
+                    CompraId = table.Column<int>(nullable: true)
                 },
                 constraints: table =>
                 {
                     table.PrimaryKey("PK_TB_COMPRA_USUARIO", x => x.CUS_ID);
+                    table.ForeignKey(
+                        name: "FK_TB_COMPRA_USUARIO_TB_COMPRA_CompraId",
+                        column: x => x.CompraId,
+                        principalTable: "TB_COMPRA",
+                        principalColumn: "COM_ID",
+                        onDelete: ReferentialAction.Restrict);
                     table.ForeignKey(
                         name: "FK_TB_COMPRA_USUARIO_TB_PRODUTO_ProdutoId",
                         column: x => x.ProdutoId,
@@ -259,6 +312,16 @@ namespace Infraestructure.Migrations
                 filter: "[NormalizedUserName] IS NOT NULL");
 
             migrationBuilder.CreateIndex(
+                name: "IX_TB_COMPRA_UserId",
+                table: "TB_COMPRA",
+                column: "UserId");
+
+            migrationBuilder.CreateIndex(
+                name: "IX_TB_COMPRA_USUARIO_CompraId",
+                table: "TB_COMPRA_USUARIO",
+                column: "CompraId");
+
+            migrationBuilder.CreateIndex(
                 name: "IX_TB_COMPRA_USUARIO_ProdutoId",
                 table: "TB_COMPRA_USUARIO",
                 column: "ProdutoId");
@@ -266,6 +329,11 @@ namespace Infraestructure.Migrations
             migrationBuilder.CreateIndex(
                 name: "IX_TB_COMPRA_USUARIO_UserId",
                 table: "TB_COMPRA_USUARIO",
+                column: "UserId");
+
+            migrationBuilder.CreateIndex(
+                name: "IX_TB_LOGSISTEMA_UserId",
+                table: "TB_LOGSISTEMA",
                 column: "UserId");
 
             migrationBuilder.CreateIndex(
@@ -295,7 +363,13 @@ namespace Infraestructure.Migrations
                 name: "TB_COMPRA_USUARIO");
 
             migrationBuilder.DropTable(
+                name: "TB_LOGSISTEMA");
+
+            migrationBuilder.DropTable(
                 name: "AspNetRoles");
+
+            migrationBuilder.DropTable(
+                name: "TB_COMPRA");
 
             migrationBuilder.DropTable(
                 name: "TB_PRODUTO");

@@ -10,8 +10,8 @@ using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 namespace Infraestructure.Migrations
 {
     [DbContext(typeof(ContextBase))]
-    [Migration("20201128200228_Update-Base2")]
-    partial class UpdateBase2
+    [Migration("20201207195440_InitialCreate")]
+    partial class InitialCreate
     {
         protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
@@ -199,6 +199,42 @@ namespace Infraestructure.Migrations
                     b.HasIndex("UserId");
 
                     b.ToTable("TB_COMPRA_USUARIO");
+                });
+
+            modelBuilder.Entity("Entities.Entities.LogSistema", b =>
+                {
+                    b.Property<int>("Id")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("int")
+                        .HasAnnotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn);
+
+                    b.Property<string>("JsonInformacao")
+                        .HasColumnName("LOG_JSONINFORMACAO")
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<string>("Nome")
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<string>("NomeAction")
+                        .HasColumnName("LOG_ACTION")
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<string>("NomeController")
+                        .HasColumnName("LOG_CONTROLLER")
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<int>("TipoLog")
+                        .HasColumnName("LOG_TIPOLOG")
+                        .HasColumnType("int");
+
+                    b.Property<string>("UserId")
+                        .HasColumnType("nvarchar(450)");
+
+                    b.HasKey("Id");
+
+                    b.HasIndex("UserId");
+
+                    b.ToTable("TB_LOGSISTEMA");
                 });
 
             modelBuilder.Entity("Entities.Entities.Produto", b =>
@@ -410,6 +446,13 @@ namespace Infraestructure.Migrations
                         .WithMany()
                         .HasForeignKey("ProdutoId");
 
+                    b.HasOne("Entities.Entities.ApplicationUser", "ApplicationUser")
+                        .WithMany()
+                        .HasForeignKey("UserId");
+                });
+
+            modelBuilder.Entity("Entities.Entities.LogSistema", b =>
+                {
                     b.HasOne("Entities.Entities.ApplicationUser", "ApplicationUser")
                         .WithMany()
                         .HasForeignKey("UserId");
