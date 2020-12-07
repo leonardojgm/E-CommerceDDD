@@ -6,6 +6,7 @@ using Domain.Interfaces.InterfaceCompraUsuario;
 using Domain.Interfaces.InterfaceLogSistema;
 using Domain.Interfaces.InterfaceProduct;
 using Domain.Interfaces.InterfaceServices;
+using Domain.Interfaces.InterfaceUsuario;
 using Domain.Services;
 using Entities.Entities;
 using Infraestructure.Configuration;
@@ -57,54 +58,57 @@ namespace Web_ECommerce
             services.AddSingleton<ICompraUsuario, RepositoryCompraUsuario>();
             services.AddSingleton<ICompra, RepositoryCompra>();
             services.AddSingleton<ILogSistema, RepositoryLogSistema>();
+            services.AddSingleton<IUsuario, RepositoryUsuario>();
 
             //Interface Aplicação
             services.AddSingleton<InterfaceProductApp, AppProduct>();
             services.AddSingleton<InterfaceCompraUsuarioApp, AppCompraUsuario>();
             services.AddSingleton<InterfaceCompraApp, AppCompra>();
             services.AddSingleton<InterfaceLogSistemaApp, AppLogSistema>();
+            services.AddSingleton<InterfaceUsuarioApp, AppUsuario>();
 
             //Interface Serviço
             services.AddSingleton<IServiceProduct, ServiceProduct>();
             services.AddSingleton<IServiceCompraUsuario, ServiceCompraUsuario>();
+            services.AddSingleton<IServiceUsuario, ServiceUsuario>();
 
             #endregion
 
             #region Json Web Token
 
-            services.AddAuthentication(JwtBearerDefaults.AuthenticationScheme).AddJwtBearer(option =>
-            {
-                option.TokenValidationParameters = new TokenValidationParameters
-                {
-                    ValidateIssuer = true,
-                    ValidateAudience = true,
-                    ValidateLifetime = true,
-                    ValidateIssuerSigningKey = true,
+            //services.AddAuthentication(JwtBearerDefaults.AuthenticationScheme).AddJwtBearer(option =>
+            //{
+            //    option.TokenValidationParameters = new TokenValidationParameters
+            //    {
+            //        ValidateIssuer = true,
+            //        ValidateAudience = true,
+            //        ValidateLifetime = true,
+            //        ValidateIssuerSigningKey = true,
 
-                    ValidIssuer = "Teste.Security.Bearer",
-                    ValidAudience = "Teste.Security.Bearer",
-                    IssuerSigningKey = JwtSecurityKey.Create("Secret_Key-12345678"),
-                };
+            //        ValidIssuer = "Teste.Security.Bearer",
+            //        ValidAudience = "Teste.Security.Bearer",
+            //        IssuerSigningKey = JwtSecurityKey.Create("Secret_Key-12345678"),
+            //    };
 
-                option.Events = new JwtBearerEvents
-                {
-                    OnAuthenticationFailed = context =>
-                    {
-                        Console.WriteLine("OnAuthenticationFailed: " + context.Exception.Message);
+            //    option.Events = new JwtBearerEvents
+            //    {
+            //        OnAuthenticationFailed = context =>
+            //        {
+            //            Console.WriteLine("OnAuthenticationFailed: " + context.Exception.Message);
 
-                        return Task.CompletedTask;
-                    },
+            //            return Task.CompletedTask;
+            //        },
 
-                    OnTokenValidated = context =>
-                    {
-                        Console.WriteLine("OnTokenValidated: " + context.SecurityToken);
+            //        OnTokenValidated = context =>
+            //        {
+            //            Console.WriteLine("OnTokenValidated: " + context.SecurityToken);
 
-                        return Task.CompletedTask;
-                    }
-                };
-            });
+            //            return Task.CompletedTask;
+            //        }
+            //    };
+            //});
 
-            services.AddAuthorization(options => { options.AddPolicy("UsuarioAPI", policy => policy.RequireClaim("UsuarioAPINumero")); });
+            //services.AddAuthorization(options => { options.AddPolicy("UsuarioAPI", policy => policy.RequireClaim("UsuarioAPINumero")); });
 
             #endregion
         }
