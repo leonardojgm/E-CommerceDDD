@@ -25,6 +25,7 @@
   <ItemGroup>
     <ProjectReference Include="..\ApplicationApp\ApplicationApp.csproj" />
     <ProjectReference Include="..\Domain\Domain.csproj" />
+    <ProjectReference Include="..\HelpConfig\HelpConfig.csproj" />
     <ProjectReference Include="..\Infraestructure\Infraestructure.csproj" />
   </ItemGroup>
 

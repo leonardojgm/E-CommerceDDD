@@ -40,9 +40,9 @@ namespace ConsumoAPI
 
             Console.WriteLine("Teste 2");
 
-            var lista =  ListarProdutos();
+            var lista = ListarProdutos();
 
-            foreach (var item in lista)
+            if (lista != null) foreach(var item in lista)
             {
                 Console.WriteLine(" Codigo : " + item.Id);
                 Console.WriteLine(" Nome : " + item.Nome);
@@ -59,16 +59,18 @@ namespace ConsumoAPI
 
             using (var cliente = new HttpClient())
             {
-                string login = "teste2@teste.com.br";
-                string senha = "Teste@123";
+                string login = "teste@teste.com.br";
+                string senha = "Teste1234@";
                 var dados = new { Email = login, Password = senha};
                 string JsonObjeto = JsonConvert.SerializeObject(dados);
                 var content = new StringContent(JsonObjeto, Encoding.UTF8, "application/json");
-                var resultado = cliente.PostAsync(urlApiGeraToken, content).Result;
+                var resultado = cliente.PostAsync(urlApiGeraToken, content);
 
-                if (resultado.IsSuccessStatusCode)
+                resultado.Wait();
+
+                if (resultado.Result.IsSuccessStatusCode)
                 {
-                    var tokenJson = resultado.Content.ReadAsStringAsync();
+                    var tokenJson = resultado.Result.Content.ReadAsStringAsync();
 
                     tokenJson.Wait();
 
@@ -109,8 +111,8 @@ namespace ConsumoAPI
         private static string ChamadaApis(HttpMethod tipoHttpMethod, string api, object objeto, bool usarLogin = false)
         {
             string retorno = String.Empty;
-            string login = "teste2@teste.com.br";
-            string senha = "Teste@123";
+            string login = "teste@teste.com.br";
+            string senha = "Teste1234@";
 
             using (HttpClient client = new HttpClient())
             {

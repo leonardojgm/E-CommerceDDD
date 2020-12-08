@@ -1,21 +1,16 @@
 ﻿using ApplicationApp.Interfaces;
-using Entities.Entities;
 using Microsoft.AspNetCore.Authorization;
-using Microsoft.AspNetCore.Identity;
 using Microsoft.AspNetCore.Mvc;
-using Microsoft.Extensions.Logging;
 using System.Threading.Tasks;
 
-namespace Web_ECommerce.Controllers
+namespace WebApiSite.Controllers
 {
     [Authorize]
-    [LogActionFilter]
-    public class ProdutoAPIController : BaseController
+    public class ProdutoAPIController : Controller
     {
         #region Construtores
 
-        public ProdutoAPIController(UserManager<ApplicationUser> userManager, ILogger<BaseController> logger, InterfaceLogSistemaApp InterfaceLogSistemaApp, InterfaceProductApp InterfaceProductApp
-            , InterfaceCompraUsuarioApp InterfaceCompraUsuarioApp) : base(logger, userManager, InterfaceLogSistemaApp) 
+        public ProdutoAPIController(InterfaceProductApp InterfaceProductApp, InterfaceCompraUsuarioApp InterfaceCompraUsuarioApp) 
         {
             _InterfaceProductApp = InterfaceProductApp;
             _InterfaceCompraUsuarioApp = InterfaceCompraUsuarioApp;

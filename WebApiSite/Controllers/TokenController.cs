@@ -1,21 +1,20 @@
-﻿using ApplicationApp.Interfaces;
-using Entities.Entities;
+﻿using Entities.Entities;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Identity;
 using Microsoft.AspNetCore.Mvc;
-using Microsoft.Extensions.Logging;
 using System.Threading.Tasks;
-using Web_ECommerce.Token;
+using WebApiSite.Token;
 
-namespace Web_ECommerce.Controllers
+namespace WebApiSite.Controllers
 {
-    [LogActionFilter]
-    public class TokenController : BaseController
+    public class TokenController : Controller
     {
         #region Construtores
 
-        public TokenController(UserManager<ApplicationUser> userManager, SignInManager<ApplicationUser> signInManager, ILogger<BaseController> logger, InterfaceLogSistemaApp InterfaceLogSistemaApp) 
-            : base(logger, userManager, InterfaceLogSistemaApp) { _signInManager = signInManager; }
+        public TokenController(SignInManager<ApplicationUser> signInManager)
+        {
+            _signInManager = signInManager; 
+        }
 
         #endregion
 

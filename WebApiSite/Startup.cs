@@ -1,20 +1,28 @@
 using Entities.Entities;
 using HelpConfig;
 using Infraestructure.Configuration;
+using Microsoft.AspNetCore.Authentication.JwtBearer;
 using Microsoft.AspNetCore.Builder;
 using Microsoft.AspNetCore.Hosting;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Hosting;
+using Microsoft.IdentityModel.Tokens;
+using System;
+using System.Threading.Tasks;
+using WebApiSite.Token;
 
-namespace Web_ECommerce
+namespace WebApiSite
 {
     public class Startup
     {
         #region Construtores
 
-        public Startup(IConfiguration configuration) { Configuration = configuration; }
+        public Startup(IConfiguration configuration)
+        {
+            Configuration = configuration;
+        }
 
         #endregion
 
@@ -35,6 +43,44 @@ namespace Web_ECommerce
             services.AddRazorPages();
 
             HelpStartup.ConfigureSingleton(services);
+
+            #region Json Web Token
+
+            services.AddAuthentication(JwtBearerDefaults.AuthenticationScheme).AddJwtBearer(option =>
+            {
+                option.TokenValidationParameters = new TokenValidationParameters
+                {
+                    ValidateIssuer = true,
+                    ValidateAudience = true,
+                    ValidateLifetime = true,
+                    ValidateIssuerSigningKey = true,
+
+                    ValidIssuer = "Teste.Security.Bearer",
+                    ValidAudience = "Teste.Security.Bearer",
+                    IssuerSigningKey = JwtSecurityKey.Create("Secret_Key-12345678"),
+                };
+
+                option.Events = new JwtBearerEvents
+                {
+                    OnAuthenticationFailed = context =>
+                    {
+                        Console.WriteLine("OnAuthenticationFailed: " + context.Exception.Message);
+
+                        return Task.CompletedTask;
+                    },
+
+                    OnTokenValidated = context =>
+                    {
+                        Console.WriteLine("OnTokenValidated: " + context.SecurityToken);
+
+                        return Task.CompletedTask;
+                    }
+                };
+            });
+
+            services.AddAuthorization(options => { options.AddPolicy("UsuarioAPI", policy => policy.RequireClaim("UsuarioAPINumero")); });
+
+            #endregion
         }
 
         // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.
@@ -43,7 +89,6 @@ namespace Web_ECommerce
             if (env.IsDevelopment())
             {
                 app.UseDeveloperExceptionPage();
-                app.UseDatabaseErrorPage();
             }
             else
             {
