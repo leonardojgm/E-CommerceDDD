@@ -31,10 +31,17 @@ namespace Web_ECommerce.Controllers
 
         #region Métodos
 
-        public async Task<IActionResult> ListarUsuarios() { return View( await _InterfaceUsuarioApp.ListarUsuarioSomenteParaAdministradores(await RetornarIdUsuarioLogado())); }
+        public async Task<IActionResult> ListarUsuarios()
+        {
+            if (!await UsuarioAdministrador()) return RedirectToAction("Index", "Home");
+
+            return View( await _InterfaceUsuarioApp.ListarUsuarioSomenteParaAdministradores(await RetornarIdUsuarioLogado())); 
+        }
 
         public async Task<IActionResult> Edit (string id)
         {
+            if (!await UsuarioAdministrador()) return RedirectToAction("Index", "Home");
+
             var tipoUsuarios = new List<SelectListItem>();
 
             tipoUsuarios.Add(new SelectListItem { Text = Enum.GetName(typeof(EnumTipoUsuario), EnumTipoUsuario.Comum), Value = Convert.ToInt32(EnumTipoUsuario.Comum).ToString() });
@@ -49,6 +56,8 @@ namespace Web_ECommerce.Controllers
         [ValidateAntiForgeryToken]
         public async Task<IActionResult> Edit(int id, ApplicationUser usuario)
         {
+            if (!await UsuarioAdministrador()) return RedirectToAction("Index", "Home");
+
             try
             {
                 await _InterfaceUsuarioApp.AtualizarTipoUsuario(usuario.Id, (EnumTipoUsuario)usuario.Tipo);

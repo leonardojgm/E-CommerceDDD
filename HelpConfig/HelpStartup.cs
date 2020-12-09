@@ -36,11 +36,13 @@ namespace HelpConfig
             services.AddSingleton<InterfaceCompraApp, AppCompra>();
             services.AddSingleton<InterfaceLogSistemaApp, AppLogSistema>();
             services.AddSingleton<InterfaceUsuarioApp, AppUsuario>();
+            services.AddSingleton<InterfaceMontaMenuApp, AppMontaMenu>();
 
             //Interface Serviço
             services.AddSingleton<IServiceProduct, ServiceProduct>();
             services.AddSingleton<IServiceCompraUsuario, ServiceCompraUsuario>();
             services.AddSingleton<IServiceUsuario, ServiceUsuario>();
+            services.AddSingleton<IServiceMontaMenu, ServiceMontaMenu>();
 
             #endregion
         }

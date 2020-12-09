@@ -74,7 +74,33 @@ ObjetoVenda.CarregaQtdCarrinho = function () {
     setTimeout(ObjetoVenda.CarregaQtdCarrinho, 10000);
 }
 
+function CarregaMenu() {
+    $.ajax({
+        type: 'GET',
+        url: "/api/ListarMenu",
+        dataType: "JSON",
+        cache: false,
+        async: true,
+        success: function (data) {
+            data.listaMenu.forEach(function (entitie) {
+                var html = $("<li>", { class: "nav-item" });
+
+                if (entitie.urlImagem != undefined && entitie.urlImagem != "") {
+                    html.append("<a class='nav-link text-dark' href=/" + entitie.controller + "/" + entitie.action + ">" + entitie.descricao + " <img src=" + entitie.urlImagem + " width='20' height='20' /> <span id=" + entitie.idCampo + "></span> </a>");
+                }
+                else {
+                    html.append("<a class='nav-link text-dark' href=/" + entitie.controller + "/" + entitie.action + ">" + entitie.descricao + "</a>");
+                }
+
+                $("#menuSite").append(html);
+            });
+        }
+    });
+
+}
+
 $(function () {
+    CarregaMenu();
     ObjetoVenda.CarregaProdutos();
     ObjetoVenda.CarregaQtdCarrinho();
 

@@ -22,35 +22,7 @@
                 </button>
                 <div class="navbar-collapse collapse d-sm-inline-flex flex-sm-row-reverse">
                     <partial name="_LoginPartial" />
-                    <ul class="navbar-nav flex-grow-1">
-                        <li class="nav-item">
-                            <a class="nav-link text-dark" asp-area="" asp-controller="Home" asp-action="Index">Loja Virtual</a>
-                        </li>
-
-                        @if (User.Identity.IsAuthenticated)
-                        {
-                            <li class="nav-item">
-                                <a class="nav-link text-dark" asp-area="" asp-controller="Produtos" asp-action="Index">Meus Produtos</a>
-                            </li>
-
-                            <li class="nav-item">
-                                <a class="nav-link text-dark" asp-area="" asp-controller="CompraUsuario" asp-action="MinhasCompras">Minhas Compras</a>
-                            </li>
-
-                            <li class="nav-item">
-                                <a class="nav-link text-dark" asp-area="" asp-controller="LogSistema" asp-action="Index">Logs</a>
-                            </li>
-
-                            <li class="nav-item">
-                                <a class="nav-link text-dark" asp-area="" asp-controller="Usuarios" asp-action="ListarUsuarios">Usuários</a>
-                            </li>
-                        }
-
-                        <li class="nav-item">
-                            <a class="nav-link text-dark" asp-area="" asp-controller="Produtos" asp-action="ListarProdutosCarrinhoUsuario">
-                                <img src="~/img/carrinho.jpg" width="20" height="20" /> <span id="qtdCarrinho"></span>
-                            </a>
-                        </li>
+                    <ul class="navbar-nav flex-grow-1" id="menuSite">
                     </ul>
                 </div>
             </div>
